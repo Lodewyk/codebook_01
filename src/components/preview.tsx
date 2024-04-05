@@ -10,25 +10,25 @@ interface PreviewProps {
  *
  */
 const html = `
-<html>
-<head>
-<style>html { background-color: #fff;}</style>
-</head>
-<body>
-    <div id="root"></div>
-    <script>
-        window.addEventListener('message', (event) => { 
-            try {
-                eval(event.data);
-            } catch (err) {
-                const root = document.querySelector('#root');
-                root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>';
-                console.error(err);
-            }
-        }, false);
-    </script>
-</body
-</html>
+    <html>
+        <head>
+            <style>html { background-color: white; }</style>
+        </head>
+        <body>
+            <div id="root"></div>
+            <script>
+                window.addEventListener('message', (event) => {
+                    try {
+                        eval(event.data);
+                    } catch (err) {
+                        const root = document.querySelector('#root');
+                        root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>';
+                        console.error(err);
+                    }
+                }, false);
+            </script>
+        </body>
+    </html>
 `;
 
 const Preview: React.FC<PreviewProps> = ({code}) => {
@@ -58,7 +58,12 @@ const Preview: React.FC<PreviewProps> = ({code}) => {
               * Just using the sandbox property though, not serving from separate domains.
               * User wont be able to user localStorage.
               */}
-            <iframe title="code-preview" ref={iframe} sandbox="allow-scripts" srcDoc={html} />
+            <iframe 
+              title="code-preview" 
+              ref={iframe} 
+              sandbox="allow-scripts" 
+              srcDoc={html} 
+            />
        </div>
     );
 }

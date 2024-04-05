@@ -38,10 +38,10 @@ const Resizable: React.FC<ResizableProps> = ({ direction, children }) => {
     if (direction === 'horizontal') {
         resizableProps = {
             className: 'resize-horizontal',
-            maxConstraints: [innerWidth * 0.2, Infinity],
-            minConstraints: [innerWidth * 0.75, Infinity],
+            minConstraints: [window.innerWidth * 0.2, Infinity],
+            maxConstraints: [window.innerWidth * 0.75, Infinity],
             height: Infinity,
-            width: width,
+            width: window.innerWidth * 0.75,
             resizeHandles: ['e'],
             onResizeStop: (event, data) => {
                 setWidth(data.size.width);
@@ -49,8 +49,8 @@ const Resizable: React.FC<ResizableProps> = ({ direction, children }) => {
         };
     } else {
         resizableProps = {
-            maxConstraints: [Infinity, innerHeight * 0.9], // prevent vertical dragging from going more than 90% window height
             minConstraints: [Infinity, 40],
+            maxConstraints: [Infinity, window.innerHeight * 0.9],  // prevent vertical dragging from going more than 90% window height
             height: 300,
             width: Infinity, // take up as much horizontal space as possible
             resizeHandles: ['s'],
