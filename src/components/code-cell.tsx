@@ -18,6 +18,15 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
 
     // this will ensure we only bundle if the user stops adding input for 1 second or longer
     useEffect(() => {
+        /**
+         * this if statement ensures that the preview window is displayed right away when
+         * the page loads
+         */
+        if (!bundle) {
+            createBundle(cell.id, cell.content);
+            return;
+        }
+
         const timer = setTimeout(async () => {
             createBundle(cell.id, cell.content);
         }, 1000); // update timer here if you want to bundle faster, this increases CPU usage, be aware
