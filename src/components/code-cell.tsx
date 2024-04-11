@@ -1,32 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import CodeEditor from './code-editor';
 import Preview from './preview';
-import bundler from '../bundler';
 import Resizable from './resizable';
 import { Cell } from '../state';
 import { useActions } from '../hooks/use-actions';
+import { useTypedSelector } from '../hooks/use-typed-selector';
 
 interface CodeCellProps {
     cell: Cell
 }
 
 const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
-    const [code, setCode] = useState('');
-    const [bundlingStatus, setBundlingStatus] = useState('');
-    const { updateCell } = useActions();
+    // const [code, setCode] = useState('');
+    // const [bundlingStatus, setBundlingStatus] = useState('');
+    const { updateCell, createBundle } = useActions();
+    const bundle = useTypedSelector((state) => state.bundles[cell.id]);
 
     // this will ensure we only bundle if the user stops adding input for 1 second or longer
     useEffect(() => {
         const timer = setTimeout(async () => {
-            const bundledOutput = await bundler(cell.content);
-            setCode(bundledOutput.code);
-            setBundlingStatus(bundledOutput.error)
+            createBundle(cell.id, cell.content);
         }, 1000); // update timer here if you want to bundle faster, this increases CPU usage, be aware
 
         return () => {
             clearTimeout(timer);
         }
-    }, [cell.content]); // only runs when input changes
+    }, [createBundle, cell.id, cell.content]); // only runs when input changes
 
     return (
         <Resizable direction="vertical">
@@ -37,7 +36,7 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
                         onChange={(value) => updateCell(cell.id, value)}
                     />
                 </Resizable>
-                <Preview code={code} bundlingError={bundlingStatus} />
+                {bundle && <Preview code={bundle.code} bundlingError={bundle.error} />}
             </div>
         </Resizable>
     );
