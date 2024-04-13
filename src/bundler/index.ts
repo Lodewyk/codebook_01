@@ -2,6 +2,7 @@ import * as esbuild from 'esbuild-wasm';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
 
+// https://esbuild.github.io/ for documentation on bundling and using esbuild
 let service: esbuild.Service;
 
 const bundler = async (rawCode: string) => {

@@ -44,3 +44,10 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Referencing code in other cells!
+
+You can reference code written in previous cells (cells above the current cell you are working in)!
+
+e.g. defining `const a = 1` inside the first code cell will allow you to `console.log(a)` inside a
+lower code cell and see "1" logged to the console.
