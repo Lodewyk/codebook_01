@@ -45,9 +45,14 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
+## Previewing your code
+
+The project has a built in method called `show()` that the user can use to preview their code in the preview window
+next to whatever code cell they are currently working in.
+
 ## Referencing code in other cells!
 
 You can reference code written in previous cells (cells above the current cell you are working in)!
 
-e.g. defining `const a = 1` inside the first code cell will allow you to `console.log(a)` inside a
-lower code cell and see "1" logged to the console.
+e.g. defining `const App = () => { return <h1>Basic Component</h1>; }` inside the first code cell will allow you to `show(<App />)` inside a
+lower code cell and see your App component previewed in the relevant preview window.
