@@ -26,7 +26,14 @@ const bundler = async (rawCode: string) => {
             define: {
                 'process.env.NODE_ENV': '"production"',
                 global: 'window'
-            }
+            },
+            /**
+             * in the `code` variable in code-cell.tsx we import _React and _ReactDOM,
+             * so we're overriding the createElement and Fragment methods to use our imported
+             * libraries to avoid naming conflicts with user imports
+             */
+            jsxFactory: '_React.createElement',
+            jsxFragment: '_React.Fragment'
         });
 
         return {
